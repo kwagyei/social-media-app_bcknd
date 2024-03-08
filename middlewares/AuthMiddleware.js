@@ -11,6 +11,7 @@ const validateToken = (req, res, next) => {
     try {
 
         const validToken = verify(accessToken, "important")
+        req.user = validToken
 
         if (validToken) {
             return next()
