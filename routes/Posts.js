@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Posts } = require("../models");
+const { validateToken } = require("../middlewares/AuthMiddleware")
 
 
 //API for displaying all posts
@@ -20,9 +21,11 @@ router.get("/:id", async(req, res) => {
 });
 
 //API for creating a POST
-router.post("/", async(req, res) => {
+router.post("/", validateToken, async(req, res) => {
 
     const post = req.body;
+    const postusername = req.user.username
+    post.userName = postusername
     await Posts.create(post); // this is also a seqeulize function
     res.json(post);
 
