@@ -53,7 +53,7 @@ router.post("/login", async(req, res) => {
                 //generating the user access token after successful login
                 const accessToken = sign({ username: user.username, id: user.id }, "important")
 
-                res.json(accessToken)
+                res.json({ token: accessToken, username: username, id: user.id })
 
             }
         })
