@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { Posts } = require("../models");
+const { Posts, Likes } = require("../models");
 const { validateToken } = require("../middlewares/AuthMiddleware")
 
 
 //API for displaying all posts
 router.get("/", async(req, res) => {
-    const listofPosts = await Posts.findAll(); //this is a sequelize function
+    const listofPosts = await Posts.findAll({ include: [Likes] }); //this is a sequelize function
     res.json(listofPosts);
 
 });
