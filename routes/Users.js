@@ -61,7 +61,7 @@ router.post("/login", async(req, res) => {
     }
 })
 
-
+//to validate user on the APP.js page and set authState
 router.get("/auth", validateToken, async(req, res) => {
 
     res.json(req.user)
