@@ -5,11 +5,21 @@ const { validateToken } = require("../middlewares/AuthMiddleware")
 
 
 //API for displaying all posts
-router.get("/", async(req, res) => {
+router.get("/", validateToken, async(req, res) => {
     const listofPosts = await Posts.findAll({ include: [Likes] }); //this is a sequelize function
-    res.json(listofPosts);
+    res.json({ listofPosts: listofPosts });
 
 });
+
+router.delete("/:id", validateToken, async(req, res) => {
+
+    const postId = req.params.id
+
+    await Posts.destroy({ where: { id: postId } })
+
+    res.json("comment deleted")
+
+})
 
 //API for displaying a selected post 
 router.get("/:id", async(req, res) => {
