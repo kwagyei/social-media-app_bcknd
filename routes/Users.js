@@ -47,7 +47,7 @@ router.post("/login", async(req, res) => {
 
             if (!match) {
 
-                res.json({ error: "Wrong Password" })
+                res.json({ error: "Wrong password" })
 
             } else {
                 //generating the user access token after successful login
